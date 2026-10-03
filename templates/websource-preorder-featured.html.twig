@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Produit à la une. Variables : title, item.
+ */
+#}
+<section class="wspo-featured">
+  {% if title %}<h2 class="wspo-featured__title">{{ title }}</h2>{% endif %}
+  <div class="wspo-featured__body">
+    {% if item.image %}
+      <a class="wspo-featured__image" href="{{ item.url }}"><img src="{{ item.image }}" alt="{{ item.title }}" loading="lazy"></a>
+    {% endif %}
+    <div class="wspo-featured__info">
+      {{ item.badge }}
+      <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+      {% if item.release %}<p class="wspo-box__release">{{ 'Sortie le @date'|t({'@date': item.release}) }}</p>{% endif %}
+      {{ item.countdown }}
+      {% if item.progress is not null %}
+        <div class="wspo-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ item.progress }}"><span class="wspo-progress__bar" style="width: {{ item.progress }}%"></span></div>
+      {% endif %}
+      {% if item.remaining is not null %}<p class="wspo-box__remaining">{{ 'Plus que @n exemplaire(s) disponible(s) en précommande.'|t({'@n': item.remaining}) }}</p>{% endif %}
+      <a class="wspo-button" href="{{ item.url }}">{{ 'Découvrir'|t }}</a>
+    </div>
+  </div>
+</section>

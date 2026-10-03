@@ -1,0 +1,165 @@
+websource_preorder.dashboard:
+  path: '/admin/commerce/preorder'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\AdminController::dashboard'
+    _title: 'Précommandes'
+  requirements:
+    _permission: 'administer websource_preorder+manage websource_preorder rules+view websource_preorder reservations+manage websource_preorder subscribers'
+
+entity.websource_preorder_rule.collection:
+  path: '/admin/commerce/preorder/rules'
+  defaults:
+    _entity_list: 'websource_preorder_rule'
+    _title: 'Règles de précommande'
+  requirements:
+    _permission: 'manage websource_preorder rules'
+entity.websource_preorder_rule.add_form:
+  path: '/admin/commerce/preorder/rules/add'
+  defaults:
+    _entity_form: 'websource_preorder_rule.add'
+    _title: 'Ajouter une règle de précommande'
+  requirements:
+    _permission: 'manage websource_preorder rules'
+entity.websource_preorder_rule.edit_form:
+  path: '/admin/commerce/preorder/rules/{websource_preorder_rule}/edit'
+  defaults:
+    _entity_form: 'websource_preorder_rule.edit'
+    _title: 'Modifier la règle de précommande'
+  requirements:
+    _permission: 'manage websource_preorder rules'
+entity.websource_preorder_rule.delete_form:
+  path: '/admin/commerce/preorder/rules/{websource_preorder_rule}/delete'
+  defaults:
+    _entity_form: 'websource_preorder_rule.delete'
+    _title: 'Supprimer la règle de précommande'
+  requirements:
+    _permission: 'manage websource_preorder rules'
+websource_preorder.rule_release:
+  path: '/admin/commerce/preorder/rules/{websource_preorder_rule}/release'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\AdminController::releaseNow'
+    _title: 'Disponible maintenant'
+  requirements:
+    _permission: 'manage websource_preorder rules'
+    _csrf_token: 'TRUE'
+
+websource_preorder.reservations:
+  path: '/admin/commerce/preorder/reservations'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\AdminController::reservations'
+    _title: 'Réservations'
+  requirements:
+    _permission: 'view websource_preorder reservations'
+websource_preorder.reservations_export:
+  path: '/admin/commerce/preorder/reservations/export'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\AdminController::exportReservations'
+  requirements:
+    _permission: 'view websource_preorder reservations'
+websource_preorder.reservation_resend:
+  path: '/admin/commerce/preorder/reservations/{id}/resend'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\AdminController::resend'
+  requirements:
+    _permission: 'view websource_preorder reservations'
+    _csrf_token: 'TRUE'
+    id: '\d+'
+websource_preorder.reservation_cancel:
+  path: '/admin/commerce/preorder/reservations/{id}/cancel'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\AdminController::cancelReservation'
+  requirements:
+    _permission: 'view websource_preorder reservations'
+    _csrf_token: 'TRUE'
+    id: '\d+'
+
+websource_preorder.subscribers:
+  path: '/admin/commerce/preorder/subscribers'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\AdminController::subscribers'
+    _title: 'Abonnés aux alertes'
+  requirements:
+    _permission: 'manage websource_preorder subscribers'
+websource_preorder.subscriber_add:
+  path: '/admin/commerce/preorder/subscribers/add'
+  defaults:
+    _form: '\Drupal\websource_preorder\Form\SubscriberAddForm'
+    _title: 'Ajouter un abonné'
+  requirements:
+    _permission: 'manage websource_preorder subscribers'
+websource_preorder.subscribers_export:
+  path: '/admin/commerce/preorder/subscribers/export'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\AdminController::exportSubscribers'
+  requirements:
+    _permission: 'manage websource_preorder subscribers'
+websource_preorder.subscriber_confirm_admin:
+  path: '/admin/commerce/preorder/subscribers/{id}/confirm'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\AdminController::confirmSubscriber'
+  requirements:
+    _permission: 'manage websource_preorder subscribers'
+    _csrf_token: 'TRUE'
+    id: '\d+'
+websource_preorder.subscriber_delete:
+  path: '/admin/commerce/preorder/subscribers/{id}/delete'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\AdminController::deleteSubscriber'
+  requirements:
+    _permission: 'manage websource_preorder subscribers'
+    _csrf_token: 'TRUE'
+    id: '\d+'
+
+websource_preorder.settings:
+  path: '/admin/commerce/preorder/settings'
+  defaults:
+    _form: '\Drupal\websource_preorder\Form\SettingsForm'
+    _title: 'Réglages des précommandes'
+  requirements:
+    _permission: 'administer websource_preorder'
+
+websource_preorder.my_preorders:
+  path: '/user/{user}/preorders'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\PublicController::myPreorders'
+    _title: 'Mes précommandes'
+  requirements:
+    _custom_access: '\Drupal\websource_preorder\Controller\PublicController::accessMine'
+    user: '\d+'
+  options:
+    parameters:
+      user:
+        type: entity:user
+
+websource_preorder.subscribe_page:
+  path: '/websource-preorder/alerte'
+  defaults:
+    _form: '\Drupal\websource_preorder\Form\SubscribeForm'
+    _title: 'Alerte précommandes'
+  requirements:
+    _permission: 'view websource_preorder pages'
+websource_preorder.confirm:
+  path: '/websource-preorder/confirmer/{id}/{token}'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\PublicController::confirm'
+    _title: 'Confirmation de l’inscription'
+  requirements:
+    _access: 'TRUE'
+    id: '\d+'
+websource_preorder.unsubscribe:
+  path: '/websource-preorder/desinscription/{id}/{token}'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\PublicController::unsubscribe'
+    _title: 'Désinscription'
+  requirements:
+    _access: 'TRUE'
+    id: '\d+'
+websource_preorder.cron:
+  path: '/websource-preorder/cron/{token}'
+  defaults:
+    _controller: '\Drupal\websource_preorder\Controller\PublicController::cron'
+  requirements:
+    _access: 'TRUE'
+
+route_callbacks:
+  - '\Drupal\websource_preorder\Routing\ListRoute::routes'

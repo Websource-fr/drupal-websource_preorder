@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Compte à rebours.
+ * Variables : target (timestamp), start, mode, parts (d,h,m,s), show, labels, done_text.
+ * Le HTML initial est rendu côté serveur, js/preorder.js le met à jour chaque seconde.
+ */
+#}
+<div class="wspo-countdown" data-wspo-countdown data-target="{{ target }}" data-mode="{{ mode }}" data-done="{{ done_text }}" role="timer" aria-live="off">
+  {% for unit in ['d', 'h', 'm', 's'] %}
+    <span class="wspo-countdown__unit" data-unit="{{ unit }}"{% if not show[unit] and mode != 'auto' %} hidden{% endif %}>
+      <span class="wspo-countdown__num">{{ parts[unit] }}</span>
+      <span class="wspo-countdown__label">{{ labels[unit] }}</span>
+    </span>
+  {% endfor %}
+</div>

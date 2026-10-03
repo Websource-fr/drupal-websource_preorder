@@ -1,0 +1,26 @@
+websource_preorder.dashboard:
+  title: 'Précommandes'
+  description: 'Règles, réservations, abonnés et réglages des précommandes.'
+  parent: commerce.admin_commerce
+  route_name: websource_preorder.dashboard
+  weight: 15
+websource_preorder.rules:
+  title: 'Règles'
+  parent: websource_preorder.dashboard
+  route_name: entity.websource_preorder_rule.collection
+  weight: 1
+websource_preorder.reservations:
+  title: 'Réservations'
+  parent: websource_preorder.dashboard
+  route_name: websource_preorder.reservations
+  weight: 2
+websource_preorder.subscribers:
+  title: 'Abonnés'
+  parent: websource_preorder.dashboard
+  route_name: websource_preorder.subscribers
+  weight: 3
+websource_preorder.settings:
+  title: 'Réglages'
+  parent: websource_preorder.dashboard
+  route_name: websource_preorder.settings
+  weight: 4

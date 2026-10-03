@@ -1,0 +1,30 @@
+websource_preorder.tab_dashboard:
+  title: 'Tableau de bord'
+  route_name: websource_preorder.dashboard
+  base_route: websource_preorder.dashboard
+  weight: 0
+websource_preorder.tab_rules:
+  title: 'Règles'
+  route_name: entity.websource_preorder_rule.collection
+  base_route: websource_preorder.dashboard
+  weight: 1
+websource_preorder.tab_reservations:
+  title: 'Réservations'
+  route_name: websource_preorder.reservations
+  base_route: websource_preorder.dashboard
+  weight: 2
+websource_preorder.tab_subscribers:
+  title: 'Abonnés'
+  route_name: websource_preorder.subscribers
+  base_route: websource_preorder.dashboard
+  weight: 3
+websource_preorder.tab_settings:
+  title: 'Réglages'
+  route_name: websource_preorder.settings
+  base_route: websource_preorder.dashboard
+  weight: 4
+websource_preorder.tab_my_preorders:
+  title: 'Mes précommandes'
+  route_name: websource_preorder.my_preorders
+  base_route: entity.user.canonical
+  weight: 20

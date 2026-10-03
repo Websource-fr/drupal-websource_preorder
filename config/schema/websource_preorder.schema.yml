@@ -1,0 +1,108 @@
+websource_preorder.settings:
+  type: config_object
+  label: 'Réglages Websource Précommandes'
+  mapping:
+    forbid_mixed: { type: boolean, label: 'Interdire le mélange précommandes / produits en stock' }
+    btn_label: { type: label, label: 'Libellé du bouton d''ajout au panier' }
+    badge_label: { type: label, label: 'Libellé du badge' }
+    cart_notice: { type: text, label: 'Notice du panier' }
+    admin_email: { type: string, label: 'Adresse e-mail de l''administrateur' }
+    keep_data: { type: boolean, label: 'Conserver les données à la désinstallation' }
+    show_countdown: { type: boolean, label: 'Afficher le compte à rebours' }
+    show_progress: { type: boolean, label: 'Afficher la barre de progression' }
+    show_quota: { type: boolean, label: 'Afficher la quantité restante' }
+    show_flag: { type: boolean, label: 'Afficher le badge dans les listes' }
+    countdown_mode:
+      type: string
+      label: 'Mode du compte à rebours'
+    colors:
+      type: mapping
+      label: 'Couleurs'
+      mapping:
+        accent: { type: string, label: 'Couleur principale' }
+        on_accent: { type: string, label: 'Texte sur couleur principale' }
+        box_bg: { type: string, label: 'Fond du bloc' }
+        border: { type: string, label: 'Bordure' }
+        count_bg: { type: string, label: 'Fond du compteur' }
+        count_text: { type: string, label: 'Texte du compteur' }
+        badge_bg: { type: string, label: 'Fond du badge' }
+        ticker_bg: { type: string, label: 'Fond du bandeau' }
+        ticker_text: { type: string, label: 'Texte du bandeau' }
+    featured_enabled: { type: boolean, label: 'Produit à la une actif' }
+    featured_title: { type: label, label: 'Titre du produit à la une' }
+    ticker_enabled: { type: boolean, label: 'Bandeau défilant actif' }
+    ticker_speed: { type: integer, label: 'Vitesse du bandeau (px/s)' }
+    ticker_max: { type: integer, label: 'Nombre maximum de produits du bandeau' }
+    ticker_prefix: { type: label, label: 'Préfixe du bandeau' }
+    accounts:
+      type: mapping
+      label: 'Blocs des pages de compte'
+      mapping:
+        login: { type: websource_preorder.account_page, label: 'Connexion' }
+        register: { type: websource_preorder.account_page, label: 'Inscription' }
+        password: { type: websource_preorder.account_page, label: 'Mot de passe oublié' }
+    accounts_title: { type: label, label: 'Titre du bloc' }
+    accounts_text: { type: text, label: 'Texte du bloc' }
+    accounts_max: { type: integer, label: 'Nombre de produits' }
+    list_slug: { type: string, label: 'Chemin de la page liste' }
+    list_title: { type: label, label: 'Titre de la page liste' }
+    list_intro: { type: text, label: 'Introduction de la page liste' }
+    list_group_by_month: { type: boolean, label: 'Grouper par mois' }
+    alerts_enabled: { type: boolean, label: 'Alertes e-mail actives' }
+    alerts_title: { type: label, label: 'Titre du formulaire d''alerte' }
+    alerts_text: { type: text, label: 'Texte du formulaire d''alerte' }
+    alerts_consent: { type: text, label: 'Texte de consentement' }
+    alerts_double_optin: { type: boolean, label: 'Double opt-in' }
+    alerts_min_delay: { type: integer, label: 'Délai minimum anti-spam (secondes)' }
+    digest_enabled: { type: boolean, label: 'Récapitulatif actif' }
+    digest_freq: { type: string, label: 'Période du récapitulatif' }
+    digest_times: { type: integer, label: 'Nombre d''envois par période' }
+    digest_mode: { type: string, label: 'Contenu du récapitulatif' }
+    digest_max: { type: integer, label: 'Nombre maximum de produits par e-mail' }
+    digest_batch: { type: integer, label: 'Taille des lots d''envoi' }
+    cron_token: { type: string, label: 'Jeton du cron' }
+    mail_order_on: { type: boolean, label: 'E-mail de confirmation client' }
+    mail_available_on: { type: boolean, label: 'E-mail produit disponible' }
+    mail_admin_on: { type: boolean, label: 'E-mail administrateur' }
+    emails:
+      type: sequence
+      label: 'Modèles d''e-mails'
+      sequence:
+        type: sequence
+        label: 'Langues'
+        sequence:
+          type: mapping
+          label: 'Modèle'
+          mapping:
+            subject: { type: label, label: 'Objet' }
+            body: { type: text, label: 'Corps HTML' }
+
+websource_preorder.account_page:
+  type: mapping
+  label: 'Blocs d''une page de compte'
+  mapping:
+    products: { type: boolean, label: 'Afficher les produits' }
+    form: { type: boolean, label: 'Afficher le formulaire d''alerte' }
+
+websource_preorder.rule.*:
+  type: config_entity
+  label: 'Règle de précommande'
+  mapping:
+    id: { type: string, label: 'ID' }
+    label: { type: label, label: 'Libellé' }
+    uuid: { type: string }
+    target_type: { type: string, label: 'Type de cible' }
+    target_id: { type: integer, label: 'Identifiant de la cible' }
+    active: { type: boolean, label: 'Active' }
+    date_start: { type: integer, nullable: true, label: 'Début' }
+    date_release: { type: integer, nullable: true, label: 'Date de sortie' }
+    end_on_release: { type: boolean, label: 'Clôture automatique à la sortie' }
+    date_end: { type: integer, nullable: true, label: 'Fin anticipée' }
+    price_mode: { type: string, label: 'Mode de prix' }
+    price_value: { type: string, label: 'Valeur du prix' }
+    quota: { type: integer, label: 'Quota total' }
+    max_per_order: { type: integer, label: 'Maximum par commande' }
+    max_per_customer: { type: integer, label: 'Maximum par client' }
+    message: { type: text, label: 'Message personnalisé' }
+    button_label: { type: label, label: 'Libellé du bouton' }
+    created: { type: integer, label: 'Création' }

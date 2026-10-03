@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Page « Mes précommandes ». Variables : rows (order, title, qty, release, status).
+ */
+#}
+{% if rows %}
+  <table class="wspo-mine">
+    <thead><tr><th>{{ 'Commande'|t }}</th><th>{{ 'Produit'|t }}</th><th>{{ 'Qté'|t }}</th><th>{{ 'Sortie'|t }}</th><th>{{ 'Statut'|t }}</th></tr></thead>
+    <tbody>
+      {% for row in rows %}
+        <tr><td>{{ row.order }}</td><td>{{ row.title }}</td><td>{{ row.qty }}</td><td>{{ row.release }}</td><td>{{ row.status }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>{{ 'Vous n’avez aucune précommande.'|t }}</p>
+{% endif %}

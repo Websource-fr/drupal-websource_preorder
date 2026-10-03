@@ -1,0 +1,937 @@
+# Websource Précommandes — traduction française (catalogue de référence).
+# Les chaînes sources du module sont rédigées en français ; ce fichier sert de base de traduction
+# (copiez-le en en.po, de.po... et renseignez msgstr).
+msgid ""
+msgstr ""
+"Project-Id-Version: websource_preorder 1.0.0\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/Availability/PreorderAvailabilityChecker.php
+msgid "Il ne reste qu’1 exemplaire de « @label » en précommande."
+msgid_plural "Il ne reste que @count exemplaires de « @label » en précommande."
+msgstr[0] "Il ne reste qu’1 exemplaire de « @label » en précommande."
+msgstr[1] "Il ne reste que @count exemplaires de « @label » en précommande."
+
+#: src/PreorderRuleListBuilder.php
+msgid "(introuvable)"
+msgstr "(introuvable)"
+
+#: src/Form/ReservationFilterForm.php
+msgid "- Tous -"
+msgstr "- Tous -"
+
+#: src/Form/ReservationFilterForm.php
+msgid "- Toutes -"
+msgstr "- Toutes -"
+
+#: src/Form/SettingsForm.php
+msgid "<strong>@r</strong> précommande(s) en cours, <strong>@a</strong> réservation(s) active(s). <a href=\":rules\">Règles</a> · <a href=\":res\">Réservations</a> · <a href=\":sub\">Abonnés</a>"
+msgstr "<strong>@r</strong> précommande(s) en cours, <strong>@a</strong> réservation(s) active(s). <a href=\":rules\">Règles</a> · <a href=\":res\">Réservations</a> · <a href=\":sub\">Abonnés</a>"
+
+#: src/Form/SettingsForm.php
+msgid "@n lot(s) d’envoi mis en file ; ils partiront au prochain cron."
+msgstr "@n lot(s) d’envoi mis en file ; ils partiront au prochain cron."
+
+#: src/Form/SubscriberAddForm.php
+msgid "Abonné ajouté et confirmé."
+msgstr "Abonné ajouté et confirmé."
+
+#: src/Controller/AdminController.php
+msgid "Abonné confirmé."
+msgstr "Abonné confirmé."
+
+#: src/Controller/AdminController.php
+msgid "Abonné supprimé."
+msgstr "Abonné supprimé."
+
+#: src/Controller/AdminController.php
+msgid "Abonnés aux alertes"
+msgstr "Abonnés aux alertes"
+
+#: src/Controller/AdminController.php
+msgid "Abonnés confirmés"
+msgstr "Abonnés confirmés"
+
+#: src/Controller/AdminController.php
+msgid "Abonnés en attente"
+msgstr "Abonnés en attente"
+
+#: src/Form/SettingsForm.php
+msgid "Accueil & bandeau"
+msgstr "Accueil & bandeau"
+
+#: src/Controller/AdminController.php
+msgid "Actions"
+msgstr "Actions"
+
+#: src/Controller/AdminController.php src/Form/ReservationFilterForm.php
+msgid "Active"
+msgstr "Active"
+
+#: src/Form/SettingsForm.php
+msgid "Activer le bandeau défilant (bloc « Bandeau des précommandes »)"
+msgstr "Activer le bandeau défilant (bloc « Bandeau des précommandes »)"
+
+#: src/Form/SettingsForm.php
+msgid "Activer le produit à la une (bloc « Précommande à la une »)"
+msgstr "Activer le produit à la une (bloc « Précommande à la une »)"
+
+#: src/Form/SettingsForm.php
+msgid "Activer les alertes e-mail (bloc « Alerte précommandes »)"
+msgstr "Activer les alertes e-mail (bloc « Alerte précommandes »)"
+
+#: src/Form/SubscriberAddForm.php
+msgid "Adresse e-mail"
+msgstr "Adresse e-mail"
+
+#: src/Form/SettingsForm.php
+msgid "Afficher la barre de progression vers la sortie"
+msgstr "Afficher la barre de progression vers la sortie"
+
+#: src/Form/SettingsForm.php
+msgid "Afficher la quantité restante"
+msgstr "Afficher la quantité restante"
+
+#: src/Form/SettingsForm.php
+msgid "Afficher le badge dans les listes de produits"
+msgstr "Afficher le badge dans les listes de produits"
+
+#: src/Form/SettingsForm.php
+msgid "Afficher le compte à rebours"
+msgstr "Afficher le compte à rebours"
+
+#: src/Form/SettingsForm.php
+msgid "Afficher le formulaire d’alerte e-mail"
+msgstr "Afficher le formulaire d’alerte e-mail"
+
+#: src/Form/SettingsForm.php
+msgid "Afficher les prochains produits en précommande"
+msgstr "Afficher les prochains produits en précommande"
+
+#: src/Form/SettingsForm.php
+msgid "Affichée au-dessus du panier s’il contient une précommande. Vide = aucune notice."
+msgstr "Affichée au-dessus du panier s’il contient une précommande. Vide = aucune notice."
+
+#: src/Form/SubscriberAddForm.php
+msgid "Ajouter"
+msgstr "Ajouter"
+
+#: src/Service/PreorderMailer.php
+msgid "Alerte nouvelle précommande (administrateur)"
+msgstr "Alerte nouvelle précommande (administrateur)"
+
+#: src/Form/SettingsForm.php
+msgid "Alertes"
+msgstr "Alertes"
+
+#: src/Controller/AdminController.php
+msgid "Annuler"
+msgstr "Annuler"
+
+#: src/Controller/AdminController.php src/Controller/PublicController.php src/Form/ReservationFilterForm.php
+msgid "Annulée"
+msgstr "Annulée"
+
+#: src/Controller/AdminController.php
+msgid "Aucun abonné."
+msgstr "Aucun abonné."
+
+#: src/Controller/PublicController.php
+msgid "Aucune précommande n’est ouverte pour le moment."
+msgstr "Aucune précommande n’est ouverte pour le moment."
+
+#: src/Controller/AdminController.php
+msgid "Aucune réservation."
+msgstr "Aucune réservation."
+
+#: src/Form/SettingsForm.php
+msgid "Automatique (selon le temps restant)"
+msgstr "Automatique (selon le temps restant)"
+
+#: templates/websource-preorder-box.html.twig
+msgid "Avancement vers la sortie"
+msgstr "Avancement vers la sortie"
+
+#: src/Form/SettingsForm.php
+msgid "Blocs comptes"
+msgstr "Blocs comptes"
+
+#: src/Form/SettingsForm.php
+msgid "Bordure"
+msgstr "Bordure"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Calendrier"
+msgstr "Calendrier"
+
+#: src/Form/SettingsForm.php
+msgid "Chemin de la page"
+msgstr "Chemin de la page"
+
+#: src/Form/SettingsForm.php
+msgid "Chemin invalide."
+msgstr "Chemin invalide."
+
+#: src/Form/PreorderRuleForm.php
+msgid "Choisissez le produit ou la variation concerné(e)."
+msgstr "Choisissez le produit ou la variation concerné(e)."
+
+#: src/PreorderRuleListBuilder.php
+msgid "Cible"
+msgstr "Cible"
+
+#: src/Controller/AdminController.php
+msgid "Client"
+msgstr "Client"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Clôturer automatiquement à la date de sortie"
+msgstr "Clôturer automatiquement à la date de sortie"
+
+#: src/Controller/AdminController.php templates/websource-preorder-mine.html.twig
+msgid "Commande"
+msgstr "Commande"
+
+#: src/Form/SettingsForm.php
+msgid "Compteur"
+msgstr "Compteur"
+
+#: src/Service/PreorderMailer.php
+msgid "Confirmation de précommande (client)"
+msgstr "Confirmation de précommande (client)"
+
+#: src/Service/PreorderMailer.php
+msgid "Confirmation d’inscription aux alertes (double opt-in)"
+msgstr "Confirmation d’inscription aux alertes (double opt-in)"
+
+#: src/Controller/AdminController.php
+msgid "Confirmer"
+msgstr "Confirmer"
+
+#: src/Controller/AdminController.php
+msgid "Confirmé"
+msgstr "Confirmé"
+
+#: src/Form/SettingsForm.php
+msgid "Conserver les données (règles, réservations, abonnés, réglages) à la désinstallation"
+msgstr "Conserver les données (règles, réservations, abonnés, réglages) à la désinstallation"
+
+#: src/Form/SettingsForm.php
+msgid "Contenu"
+msgstr "Contenu"
+
+#: src/Form/SettingsForm.php
+msgid "Corps HTML"
+msgstr "Corps HTML"
+
+#: src/Form/SettingsForm.php
+msgid "Couleur invalide."
+msgstr "Couleur invalide."
+
+#: src/Form/SettingsForm.php
+msgid "Couleur principale"
+msgstr "Couleur principale"
+
+#: src/Form/SettingsForm.php
+msgid "Couleurs"
+msgstr "Couleurs"
+
+#: src/Form/SettingsForm.php
+msgid "Cron & récapitulatif"
+msgstr "Cron & récapitulatif"
+
+#: src/Controller/AdminController.php
+msgid "Créée le"
+msgstr "Créée le"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Date de sortie"
+msgstr "Date de sortie"
+
+#: src/Service/PreorderMailer.php
+msgid "Date de sortie prévue : @d."
+msgstr "Date de sortie prévue : @d."
+
+#: src/Service/DisplayBuilder.php
+msgid "Date de sortie à venir"
+msgstr "Date de sortie à venir"
+
+#: src/Controller/AdminController.php
+msgid "Dernier récapitulatif : @d. Adresse du cron sécurisé : <code>@u</code>"
+msgstr "Dernier récapitulatif : @d. Adresse du cron sécurisé : <code>@u</code>"
+
+#: src/Form/SettingsForm.php
+msgid "Destinataire"
+msgstr "Destinataire"
+
+#: src/Controller/PublicController.php
+msgid "Disponible"
+msgstr "Disponible"
+
+#: src/PreorderRuleListBuilder.php src/Service/DisplayBuilder.php
+msgid "Disponible maintenant"
+msgstr "Disponible maintenant"
+
+#: src/Form/SettingsForm.php
+msgid "Double opt-in (e-mail de confirmation)"
+msgstr "Double opt-in (e-mail de confirmation)"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Début de la précommande"
+msgstr "Début de la précommande"
+
+#: templates/websource-preorder-featured.html.twig
+msgid "Découvrir"
+msgstr "Découvrir"
+
+#: src/Form/SettingsForm.php
+msgid "Délai minimum avant validation (secondes, anti-spam)"
+msgstr "Délai minimum avant validation (secondes, anti-spam)"
+
+#: src/Service/DisplayBuilder.php
+msgid "Désactivée"
+msgstr "Désactivée"
+
+#: src/Controller/AdminController.php src/Form/SettingsForm.php
+msgid "E-mail"
+msgstr "E-mail"
+
+#: src/Form/SettingsForm.php
+msgid "E-mail de l’administrateur"
+msgstr "E-mail de l’administrateur"
+
+#: src/Form/SettingsForm.php
+msgid "E-mail de test envoyé à @e (modèle enregistré ; pensez à enregistrer vos modifications avant de tester)."
+msgstr "E-mail de test envoyé à @e (modèle enregistré ; pensez à enregistrer vos modifications avant de tester)."
+
+#: src/Controller/AdminController.php
+msgid "E-mail renvoyé à @e."
+msgstr "E-mail renvoyé à @e."
+
+#: src/Form/SettingsForm.php
+msgid "E-mails"
+msgstr "E-mails"
+
+#: src/Controller/AdminController.php
+msgid "En attente"
+msgstr "En attente"
+
+#: src/Controller/PublicController.php
+msgid "En attente de sortie"
+msgstr "En attente de sortie"
+
+#: src/Service/DisplayBuilder.php
+msgid "En cours"
+msgstr "En cours"
+
+#: src/Form/SettingsForm.php
+msgid "Envoyer la confirmation de précommande au client"
+msgstr "Envoyer la confirmation de précommande au client"
+
+#: src/Form/SettingsForm.php
+msgid "Envoyer l’e-mail « produit disponible » à la sortie"
+msgstr "Envoyer l’e-mail « produit disponible » à la sortie"
+
+#: src/Form/SettingsForm.php
+msgid "Envoyer un récapitulatif périodique aux abonnés"
+msgstr "Envoyer un récapitulatif périodique aux abonnés"
+
+#: src/Form/SettingsForm.php
+msgid "Envoyer un test"
+msgstr "Envoyer un test"
+
+#: src/Controller/AdminController.php
+msgid "Exporter en CSV"
+msgstr "Exporter en CSV"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Ferme les précommandes avant la sortie."
+msgstr "Ferme les précommandes avant la sortie."
+
+#: src/Form/ReservationFilterForm.php
+msgid "Filtrer"
+msgstr "Filtrer"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Fin anticipée (optionnelle)"
+msgstr "Fin anticipée (optionnelle)"
+
+#: src/Form/SettingsForm.php
+msgid "Fond du badge"
+msgstr "Fond du badge"
+
+#: src/Form/SettingsForm.php
+msgid "Fond du bandeau"
+msgstr "Fond du bandeau"
+
+#: src/Form/SettingsForm.php
+msgid "Fond du bloc"
+msgstr "Fond du bloc"
+
+#: src/Form/SettingsForm.php
+msgid "Fond du compteur"
+msgstr "Fond du compteur"
+
+#: src/Form/SettingsForm.php
+msgid "Grouper les produits par mois de sortie"
+msgstr "Grouper les produits par mois de sortie"
+
+#: src/Form/SettingsForm.php
+msgid "Général"
+msgstr "Général"
+
+#: src/Controller/AdminController.php
+msgid "Inscrit le"
+msgstr "Inscrit le"
+
+#: src/Form/SettingsForm.php
+msgid "Interdire le mélange précommandes / produits en stock dans un même panier"
+msgstr "Interdire le mélange précommandes / produits en stock dans un même panier"
+
+#: src/Form/SubscribeForm.php
+msgid "Je m’abonne"
+msgstr "Je m’abonne"
+
+#: src/Form/SettingsForm.php
+msgid "Jours"
+msgstr "Jours"
+
+#: src/Form/SettingsForm.php
+msgid "Jours + heures"
+msgstr "Jours + heures"
+
+#: src/Form/SettingsForm.php
+msgid "Jours + heures + minutes"
+msgstr "Jours + heures + minutes"
+
+#: src/Form/SettingsForm.php
+msgid "Jours + heures + minutes + secondes"
+msgstr "Jours + heures + minutes + secondes"
+
+#: src/Form/PreorderRuleForm.php
+msgid "La date de sortie doit être postérieure au début."
+msgstr "La date de sortie doit être postérieure au début."
+
+#: src/Form/PreorderRuleForm.php
+msgid "La règle s’applique à"
+msgstr "La règle s’applique à"
+
+#: src/Form/SettingsForm.php
+msgid "Lancer le récapitulatif maintenant"
+msgstr "Lancer le récapitulatif maintenant"
+
+#: src/Controller/AdminController.php src/Form/SettingsForm.php src/Form/SubscriberAddForm.php
+msgid "Langue"
+msgstr "Langue"
+
+#: src/Form/SettingsForm.php
+msgid "Le cron Drupal exécute ces tâches automatiquement. Vous pouvez aussi planifier cette adresse sécurisée :"
+msgstr "Le cron Drupal exécute ces tâches automatiquement. Vous pouvez aussi planifier cette adresse sécurisée :"
+
+#: src/Form/SettingsForm.php
+msgid "Le défilement est désactivé si le visiteur demande moins d’animations (prefers-reduced-motion)."
+msgstr "Le défilement est désactivé si le visiteur demande moins d’animations (prefers-reduced-motion)."
+
+#: src/Form/PreorderRuleForm.php
+msgid "Le pourcentage doit être compris entre 0 et 100."
+msgstr "Le pourcentage doit être compris entre 0 et 100."
+
+#: src/Form/SettingsForm.php
+msgid "Les envois sont mis en file (Queue API) et reprennent automatiquement s’ils sont interrompus. Aucun e-mail n’est envoyé s’il n’y a rien à annoncer."
+msgstr "Les envois sont mis en file (Queue API) et reprennent automatiquement s’ils sont interrompus. Aucun e-mail n’est envoyé s’il n’y a rien à annoncer."
+
+#: src/Availability/PreorderAvailabilityChecker.php
+msgid "Les précommandes ne peuvent pas être mélangées avec des produits en stock : finalisez ou videz votre panier d’abord."
+msgstr "Les précommandes ne peuvent pas être mélangées avec des produits en stock : finalisez ou videz votre panier d’abord."
+
+#: templates/websource-preorder-box.html.twig
+msgid "Les précommandes ouvriront prochainement."
+msgstr "Les précommandes ouvriront prochainement."
+
+#: src/Availability/PreorderAvailabilityChecker.php
+msgid "Les précommandes pour « @label » sont complètes : le quota est atteint."
+msgstr "Les précommandes pour « @label » sont complètes : le quota est atteint."
+
+#: src/Form/SettingsForm.php
+msgid "Lettres, chiffres, tirets et barres obliques. Exemple : precommandes"
+msgstr "Lettres, chiffres, tirets et barres obliques. Exemple : precommandes"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Libellé"
+msgstr "Libellé"
+
+#: src/Form/SettingsForm.php
+msgid "Libellé du badge"
+msgstr "Libellé du badge"
+
+#: src/Form/PreorderRuleForm.php src/Form/SettingsForm.php
+msgid "Libellé du bouton d’ajout au panier"
+msgstr "Libellé du bouton d’ajout au panier"
+
+#: src/Controller/PublicController.php
+msgid "Lien de confirmation invalide ou expiré."
+msgstr "Lien de confirmation invalide ou expiré."
+
+#: src/Controller/PublicController.php
+msgid "Lien de désinscription invalide."
+msgstr "Lien de désinscription invalide."
+
+#: src/Availability/PreorderAvailabilityChecker.php
+msgid "Limite de @max exemplaire(s) de « @label » par client atteinte (déjà réservés : @done)."
+msgstr "Limite de @max exemplaire(s) de « @label » par client atteinte (déjà réservés : @done)."
+
+#: src/Form/PreorderRuleForm.php
+msgid "Limites (0 = illimité)"
+msgstr "Limites (0 = illimité)"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Maximum par client"
+msgstr "Maximum par client"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Maximum par commande"
+msgstr "Maximum par commande"
+
+#: src/Form/SubscribeForm.php
+msgid "Merci ! Un e-mail de confirmation vient de vous être envoyé : cliquez sur le lien pour valider votre inscription."
+msgstr "Merci ! Un e-mail de confirmation vient de vous être envoyé : cliquez sur le lien pour valider votre inscription."
+
+#: src/Form/SubscribeForm.php
+msgid "Merci ! Votre inscription aux alertes est prise en compte."
+msgstr "Merci ! Votre inscription aux alertes est prise en compte."
+
+#: src/Form/SubscribeForm.php
+msgid "Merci de patienter quelques secondes avant de valider."
+msgstr "Merci de patienter quelques secondes avant de valider."
+
+#: src/Controller/PublicController.php
+msgid "Merci, votre inscription aux alertes précommandes est confirmée."
+msgstr "Merci, votre inscription aux alertes précommandes est confirmée."
+
+#: src/Form/PreorderRuleForm.php
+msgid "Message affiché sur la fiche produit"
+msgstr "Message affiché sur la fiche produit"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Mode"
+msgstr "Mode"
+
+#: src/Form/SubscribeForm.php
+msgid "Ne pas remplir"
+msgstr "Ne pas remplir"
+
+#: src/Form/SettingsForm.php
+msgid "Nombre de produits affichés"
+msgstr "Nombre de produits affichés"
+
+#: src/Form/SettingsForm.php
+msgid "Nombre d’envois"
+msgstr "Nombre d’envois"
+
+#: src/Form/SettingsForm.php
+msgid "Nombre maximum de produits"
+msgstr "Nombre maximum de produits"
+
+#: src/Form/SettingsForm.php
+msgid "Nombre maximum de produits par e-mail"
+msgstr "Nombre maximum de produits par e-mail"
+
+#: src/Form/SettingsForm.php
+msgid "Notice du panier"
+msgstr "Notice du panier"
+
+#: src/Form/SettingsForm.php
+msgid "Objet"
+msgstr "Objet"
+
+#: src/Form/SettingsForm.php
+msgid "Page de connexion"
+msgstr "Page de connexion"
+
+#: src/Form/SettingsForm.php
+msgid "Page d’inscription"
+msgstr "Page d’inscription"
+
+#: src/Form/SettingsForm.php
+msgid "Page liste"
+msgstr "Page liste"
+
+#: src/Form/SettingsForm.php
+msgid "Page mot de passe oublié"
+msgstr "Page mot de passe oublié"
+
+#: src/Form/SettingsForm.php
+msgid "Placez le bloc dans la région de votre choix via Structure → Mise en page des blocs."
+msgstr "Placez le bloc dans la région de votre choix via Structure → Mise en page des blocs."
+
+#: templates/websource-preorder-box.html.twig templates/websource-preorder-featured.html.twig templates/websource-preorder-list.html.twig
+msgid "Plus que @n exemplaire(s) disponible(s) en précommande."
+msgstr "Plus que @n exemplaire(s) disponible(s) en précommande."
+
+#: src/Form/PreorderRuleForm.php
+msgid "Prix de précommande"
+msgstr "Prix de précommande"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Prix fixe"
+msgstr "Prix fixe"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Prix fixe ou montant dans la devise du produit ; pourcentage entre 0 et 100. Le produit n’est jamais modifié : le prix est calculé à la volée."
+msgstr "Prix fixe ou montant dans la devise du produit ; pourcentage entre 0 et 100. Le produit n’est jamais modifié : le prix est calculé à la volée."
+
+#: src/Form/PreorderRuleForm.php
+msgid "Prix normal du produit"
+msgstr "Prix normal du produit"
+
+#: src/Controller/AdminController.php src/Form/PreorderRuleForm.php templates/websource-preorder-mine.html.twig
+msgid "Produit"
+msgstr "Produit"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Produit concerné"
+msgstr "Produit concerné"
+
+#: src/Service/PreorderMailer.php
+msgid "Produit disponible (client)"
+msgstr "Produit disponible (client)"
+
+#: templates/websource-preorder-ticker.html.twig
+msgid "Produits en précommande"
+msgstr "Produits en précommande"
+
+#: src/Service/DisplayBuilder.php
+msgid "Programmée"
+msgstr "Programmée"
+
+#: src/Controller/AdminController.php
+msgid "Programmées"
+msgstr "Programmées"
+
+#: src/Service/DisplayBuilder.php
+msgid "Précommande"
+msgstr "Précommande"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Précommande activée"
+msgstr "Précommande activée"
+
+#: websource_preorder.module
+msgid "Précommander"
+msgstr "Précommander"
+
+#: src/Controller/AdminController.php
+msgid "Précommandes en cours"
+msgstr "Précommandes en cours"
+
+#: src/Form/SettingsForm.php
+msgid "Préfixe du bandeau"
+msgstr "Préfixe du bandeau"
+
+#: src/Form/SettingsForm.php
+msgid "Prévenir l’administrateur à chaque précommande"
+msgstr "Prévenir l’administrateur à chaque précommande"
+
+#: src/Controller/AdminController.php
+msgid "Prévenu le"
+msgstr "Prévenu le"
+
+#: src/Controller/AdminController.php templates/websource-preorder-mine.html.twig
+msgid "Qté"
+msgstr "Qté"
+
+#: templates/websource-preorder-box.html.twig
+msgid "Quota atteint : les précommandes sont complètes."
+msgstr "Quota atteint : les précommandes sont complètes."
+
+#: src/Form/PreorderRuleForm.php
+msgid "Quota total"
+msgstr "Quota total"
+
+#: src/Form/ReservationFilterForm.php
+msgid "Recherche"
+msgstr "Recherche"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Remise en montant"
+msgstr "Remise en montant"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Remise en pourcentage"
+msgstr "Remise en pourcentage"
+
+#: src/Controller/AdminController.php
+msgid "Renvoyer l’e-mail"
+msgstr "Renvoyer l’e-mail"
+
+#: src/Form/SettingsForm.php
+msgid "Reçoit l’alerte de nouvelle précommande. Vide = e-mail du site."
+msgstr "Reçoit l’alerte de nouvelle précommande. Vide = e-mail du site."
+
+#: src/Form/SettingsForm.php
+msgid "Rien à envoyer (aucune précommande à annoncer, aucun abonné confirmé ou envoi déjà en cours)."
+msgstr "Rien à envoyer (aucune précommande à annoncer, aucun abonné confirmé ou envoi déjà en cours)."
+
+#: src/Form/ReservationFilterForm.php src/PreorderRuleListBuilder.php
+msgid "Règle"
+msgstr "Règle"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Règle « @l » enregistrée."
+msgstr "Règle « @l » enregistrée."
+
+#: src/Controller/AdminController.php
+msgid "Règles de précommande"
+msgstr "Règles de précommande"
+
+#: src/Service/PreorderMailer.php
+msgid "Récapitulatif périodique des précommandes (abonnés)"
+msgstr "Récapitulatif périodique des précommandes (abonnés)"
+
+#: src/Controller/AdminController.php
+msgid "Réglages"
+msgstr "Réglages"
+
+#: src/Form/SettingsForm.php
+msgid "Régénérer le jeton du cron à l’enregistrement"
+msgstr "Régénérer le jeton du cron à l’enregistrement"
+
+#: src/Controller/AdminController.php
+msgid "Réservation annulée : le quota a été libéré."
+msgstr "Réservation annulée : le quota a été libéré."
+
+#: src/Controller/AdminController.php
+msgid "Réservations"
+msgstr "Réservations"
+
+#: src/Controller/AdminController.php
+msgid "Réservations actives"
+msgstr "Réservations actives"
+
+#: src/Controller/AdminController.php
+msgid "Réservations annulées"
+msgstr "Réservations annulées"
+
+#: src/PreorderRuleListBuilder.php
+msgid "Réservé / quota"
+msgstr "Réservé / quota"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Saisissez une valeur numérique positive."
+msgstr "Saisissez une valeur numérique positive."
+
+#: src/Form/SettingsForm.php
+msgid "Seulement les nouveautés depuis le dernier envoi"
+msgstr "Seulement les nouveautés depuis le dernier envoi"
+
+#: src/PreorderRuleListBuilder.php templates/websource-preorder-mine.html.twig
+msgid "Sortie"
+msgstr "Sortie"
+
+#: src/Service/PreorderMailer.php
+msgid "Sortie le @d"
+msgstr "Sortie le @d"
+
+#: templates/websource-preorder-box.html.twig templates/websource-preorder-featured.html.twig templates/websource-preorder-list.html.twig templates/websource-preorder-upcoming.html.twig
+msgid "Sortie le @date"
+msgstr "Sortie le @date"
+
+#: src/Controller/AdminController.php src/Form/ReservationFilterForm.php src/PreorderRuleListBuilder.php templates/websource-preorder-mine.html.twig
+msgid "Statut"
+msgstr "Statut"
+
+#: src/Controller/AdminController.php
+msgid "Supprimer"
+msgstr "Supprimer"
+
+#: websource_preorder.module
+msgid "Système complet de précommandes pour Drupal Commerce : règles par produit ou variation, prix de précommande, quotas, réservations, compte à rebours, alertes e-mail et récapitulatif par cron. Réglages : Commerce → Configuration → Précommandes."
+msgstr "Système complet de précommandes pour Drupal Commerce : règles par produit ou variation, prix de précommande, quotas, réservations, compte à rebours, alertes e-mail et récapitulatif par cron. Réglages : Commerce → Configuration → Précommandes."
+
+#: src/Form/PreorderRuleForm.php
+msgid "S’applique aux clients identifiés (ou à l’e-mail de la commande)."
+msgstr "S’applique aux clients identifiés (ou à l’e-mail de la commande)."
+
+#: src/Form/SettingsForm.php
+msgid "Taille des lots d’envoi"
+msgstr "Taille des lots d’envoi"
+
+#: src/Service/DisplayBuilder.php
+msgid "Terminée"
+msgstr "Terminée"
+
+#: src/Controller/AdminController.php
+msgid "Terminées"
+msgstr "Terminées"
+
+#: src/Form/SettingsForm.php
+msgid "Texte"
+msgstr "Texte"
+
+#: src/Form/SettingsForm.php
+msgid "Texte de consentement (RGPD)"
+msgstr "Texte de consentement (RGPD)"
+
+#: src/Form/SettingsForm.php
+msgid "Texte du bandeau"
+msgstr "Texte du bandeau"
+
+#: src/Form/SettingsForm.php
+msgid "Texte du bloc"
+msgstr "Texte du bloc"
+
+#: src/Form/SettingsForm.php
+msgid "Texte du compteur"
+msgstr "Texte du compteur"
+
+#: src/Form/SettingsForm.php
+msgid "Texte d’introduction"
+msgstr "Texte d’introduction"
+
+#: src/Form/SettingsForm.php
+msgid "Texte sur la couleur principale"
+msgstr "Texte sur la couleur principale"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Textes (optionnels)"
+msgstr "Textes (optionnels)"
+
+#: src/Form/SettingsForm.php
+msgid "Titre"
+msgstr "Titre"
+
+#: src/Form/SettingsForm.php
+msgid "Titre de la page"
+msgstr "Titre de la page"
+
+#: src/Form/SettingsForm.php
+msgid "Titre du bloc"
+msgstr "Titre du bloc"
+
+#: src/Form/SettingsForm.php
+msgid "Titre du produit à la une"
+msgstr "Titre du produit à la une"
+
+#: src/Controller/PublicController.php
+msgid "Toutes les précommandes"
+msgstr "Toutes les précommandes"
+
+#: src/Form/SettingsForm.php
+msgid "Toutes les précommandes ouvertes"
+msgstr "Toutes les précommandes ouvertes"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Toutes les variations d’un produit"
+msgstr "Toutes les variations d’un produit"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Une variation précise"
+msgstr "Une variation précise"
+
+#: src/Form/SettingsForm.php
+msgid "Unités du compte à rebours"
+msgstr "Unités du compte à rebours"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Valeur"
+msgstr "Valeur"
+
+#: src/Form/SettingsForm.php
+msgid "Variables : @v"
+msgstr "Variables : @v"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Variation"
+msgstr "Variation"
+
+#: src/Form/PreorderRuleForm.php
+msgid "Vide = dès l’activation."
+msgstr "Vide = dès l’activation."
+
+#: src/Form/PreorderRuleForm.php
+msgid "Vide = libellé global."
+msgstr "Vide = libellé global."
+
+#: src/Form/SettingsForm.php
+msgid "Vitesse (pixels par seconde)"
+msgstr "Vitesse (pixels par seconde)"
+
+#: src/Form/SubscribeForm.php
+msgid "Votre adresse e-mail"
+msgstr "Votre adresse e-mail"
+
+#: src/Form/SubscribeForm.php
+msgid "Votre demande n’a pas pu être validée. Rechargez la page et réessayez."
+msgstr "Votre demande n’a pas pu être validée. Rechargez la page et réessayez."
+
+#: src/Availability/PreorderAvailabilityChecker.php
+msgid "Votre panier contient des précommandes : elles ne peuvent pas être mélangées avec des produits en stock."
+msgstr "Votre panier contient des précommandes : elles ne peuvent pas être mélangées avec des produits en stock."
+
+#: src/Availability/PreorderAvailabilityChecker.php
+msgid "Vous ne pouvez commander que @max exemplaire(s) de « @label » par commande."
+msgstr "Vous ne pouvez commander que @max exemplaire(s) de « @label » par commande."
+
+#: templates/websource-preorder-mine.html.twig
+msgid "Vous n’avez aucune précommande."
+msgstr "Vous n’avez aucune précommande."
+
+#: src/Controller/PublicController.php
+msgid "Vous êtes désinscrit des alertes précommandes. Vos données ont été supprimées."
+msgstr "Vous êtes désinscrit des alertes précommandes. Vos données ont été supprimées."
+
+#: src/Service/DisplayBuilder.php
+msgid "heures"
+msgstr "heures"
+
+#: src/Controller/AdminController.php
+msgid "jamais"
+msgstr "jamais"
+
+#: src/Form/SettingsForm.php
+msgid "jour"
+msgstr "jour"
+
+#: src/Service/DisplayBuilder.php
+msgid "jours"
+msgstr "jours"
+
+#: src/Service/DisplayBuilder.php
+msgid "minutes"
+msgstr "minutes"
+
+#: src/Form/SettingsForm.php
+msgid "mois"
+msgstr "mois"
+
+#: src/Form/SettingsForm.php
+msgid "par"
+msgstr "par"
+
+#: src/Service/DisplayBuilder.php
+msgid "secondes"
+msgstr "secondes"
+
+#: src/Form/SettingsForm.php
+msgid "semaine"
+msgstr "semaine"
+
+#: src/PreorderRuleListBuilder.php
+msgid "variation"
+msgstr "variation"
+
+#: src/Controller/AdminController.php
+msgid "« @l » est disponible maintenant. @n e-mail(s) « disponible » envoyé(s)."
+msgstr "« @l » est disponible maintenant. @n e-mail(s) « disponible » envoyé(s)."
+
+#: src/Form/SettingsForm.php
+msgid "Échec de l’envoi du test."
+msgstr "Échec de l’envoi du test."
+
+#: src/Controller/AdminController.php
+msgid "Échec de l’envoi."
+msgstr "Échec de l’envoi."

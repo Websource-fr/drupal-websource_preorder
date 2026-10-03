@@ -1,0 +1,52 @@
+Licence Websource Précommandes — Usage libre non commercial
+================================================================
+
+Copyright (c) 2026 Websource (https://www.websource.fr)
+
+**Autorisations accordées**, à titre gratuit, à toute personne obtenant une
+copie de ce logiciel et des fichiers de documentation associés (le
+« Logiciel ») :
+
+- **Utiliser** le Logiciel, y compris en production, sur un nombre
+  illimité de sites Drupal Commerce, à des fins personnelles,
+  associatives, ou dans le cadre de l'activité commerciale normale
+  d'une boutique en ligne (c'est-à-dire : proposer des précommandes sur votre propre
+  boutique) ;
+- **Copier, modifier et adapter** le code source pour vos propres
+  besoins ou ceux d'un client, y compris dans le cadre de prestations
+  de service (installation, configuration, personnalisation par une
+  agence ou un développeur freelance pour le compte d'un client final) ;
+- **Redistribuer** des copies non modifiées ou modifiées du Logiciel,
+  à condition de conserver le présent fichier de licence et la mention
+  de copyright ci-dessus dans toute copie ou portion substantielle du
+  Logiciel.
+
+**Ce qui n'est PAS autorisé sans accord écrit préalable de Websource :**
+
+- **Revendre** le Logiciel lui-même (en l'état ou modifié) en tant que
+  produit payant, sur une place de marché de modules Drupal ou
+  ailleurs — le Logiciel doit rester accessible gratuitement à qui le
+  reçoit de vous ;
+- **Retirer ou masquer** l'attribution à Websource dans le code source
+  ou la documentation ;
+- Utiliser le nom « Websource » pour laisser entendre un partenariat,
+  un endossement ou une affiliation qui n'existe pas.
+
+L'intégration de ce module dans une prestation de service facturée à un
+client (installation, personnalisation, maintenance) est en revanche
+explicitement autorisée : c'est le Logiciel lui-même qui doit rester
+gratuit, pas le travail effectué autour de lui.
+
+**Le Logiciel est fourni « tel quel », sans garantie d'aucune sorte,
+expresse ou implicite**, y compris, mais sans s'y limiter, les garanties
+de qualité marchande, d'adéquation à un usage particulier et
+d'absence de contrefaçon. En aucun cas les auteurs ou détenteurs du
+copyright ne pourront être tenus responsables de quelque réclamation,
+dommage ou autre responsabilité, que ce soit dans le cadre d'un
+contrat, d'un délit ou autrement, découlant de, ou en relation avec le
+Logiciel ou son utilisation ou d'autres transactions avec le Logiciel.
+
+---
+
+Questions sur la licence, demande d'usage commercial (revente,
+intégration dans un pack payant) : contact@websource.fr

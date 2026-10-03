@@ -1,0 +1,13 @@
+administer websource_preorder:
+  title: 'Administrer les précommandes (réglages, e-mails, cron)'
+  restrict access: true
+manage websource_preorder rules:
+  title: 'Gérer les règles de précommande'
+view websource_preorder reservations:
+  title: 'Consulter et gérer les réservations de précommande'
+manage websource_preorder subscribers:
+  title: 'Gérer les abonnés aux alertes précommandes'
+view own websource_preorder:
+  title: 'Voir ses propres précommandes (« Mes précommandes »)'
+view websource_preorder pages:
+  title: 'Voir la page publique des précommandes et les blocs d''affichage'

@@ -1,0 +1,4 @@
+.wspo-admin-cards { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+.wspo-admin-card { min-width: 150px; padding: 1rem 1.25rem; border: 1px solid #d3d4d9; border-radius: 6px; background: #fff; }
+.wspo-admin-card strong { display: block; font-size: 2rem; line-height: 1.1; }
+.wspo-admin-card span { color: #55565b; }

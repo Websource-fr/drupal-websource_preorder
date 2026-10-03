@@ -1,0 +1,44 @@
+services:
+  websource_preorder.rule_manager:
+    class: Drupal\websource_preorder\Service\RuleManager
+    arguments: ['@entity_type.manager', '@config.factory', '@datetime.time', '@database', '@cache_tags.invalidator']
+  websource_preorder.reservation_manager:
+    class: Drupal\websource_preorder\Service\ReservationManager
+    arguments: ['@database', '@datetime.time', '@cache_tags.invalidator', '@websource_preorder.rule_manager', '@entity_type.manager']
+  websource_preorder.subscriber_manager:
+    class: Drupal\websource_preorder\Service\SubscriberManager
+    arguments: ['@database', '@datetime.time', '@private_key', '@language_manager']
+  websource_preorder.mailer:
+    class: Drupal\websource_preorder\Service\PreorderMailer
+    arguments: ['@plugin.manager.mail', '@config.factory', '@language_manager', '@renderer', '@url_generator', '@websource_preorder.subscriber_manager', '@logger.channel.websource_preorder', '@string_translation']
+  logger.channel.websource_preorder:
+    parent: logger.channel_base
+    arguments: ['websource_preorder']
+  websource_preorder.display:
+    class: Drupal\websource_preorder\Service\DisplayBuilder
+    arguments: ['@websource_preorder.rule_manager', '@websource_preorder.reservation_manager', '@config.factory', '@datetime.time', '@date.formatter', '@entity_type.manager']
+  websource_preorder.digest:
+    class: Drupal\websource_preorder\Service\DigestService
+    arguments: ['@websource_preorder.rule_manager', '@websource_preorder.subscriber_manager', '@websource_preorder.mailer', '@config.factory', '@state', '@queue', '@datetime.time', '@logger.channel.websource_preorder']
+  websource_preorder.release:
+    class: Drupal\websource_preorder\Service\ReleaseService
+    arguments: ['@websource_preorder.rule_manager', '@websource_preorder.reservation_manager', '@websource_preorder.mailer', '@datetime.time', '@entity_type.manager', '@config.factory']
+  websource_preorder.availability_checker:
+    class: Drupal\websource_preorder\Availability\PreorderAvailabilityChecker
+    arguments: ['@websource_preorder.rule_manager', '@websource_preorder.reservation_manager', '@config.factory', '@commerce_cart.cart_provider', '@string_translation']
+    tags:
+      - { name: commerce_order.availability_checker, priority: 100 }
+  websource_preorder.availability_manager:
+    class: Drupal\websource_preorder\Availability\AvailabilityManagerDecorator
+    decorates: commerce_order.availability_manager
+    arguments: ['@websource_preorder.availability_manager.inner', '@websource_preorder.availability_checker', '@websource_preorder.rule_manager']
+  websource_preorder.price_resolver:
+    class: Drupal\websource_preorder\PriceResolver\PreorderPriceResolver
+    arguments: ['@websource_preorder.rule_manager']
+    tags:
+      - { name: commerce_price.price_resolver, priority: 600 }
+  websource_preorder.order_subscriber:
+    class: Drupal\websource_preorder\EventSubscriber\OrderSubscriber
+    arguments: ['@websource_preorder.rule_manager', '@websource_preorder.reservation_manager', '@websource_preorder.mailer', '@config.factory']
+    tags:
+      - { name: event_subscriber }

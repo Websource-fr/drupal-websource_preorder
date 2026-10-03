@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Bloc précommande de la fiche produit.
+ * Variables : data (title, status, status_label, release, countdown, progress, remaining, quota, message, badge).
+ */
+#}
+<section class="wspo-box wspo-box--{{ data.status }}">
+  <div class="wspo-box__head">
+    {{ data.badge }}
+    {% if data.release %}
+      <span class="wspo-box__release">{{ 'Sortie le @date'|t({'@date': data.release}) }}</span>
+    {% endif %}
+  </div>
+  {% if data.status == 'scheduled' %}
+    <p class="wspo-box__text">{{ 'Les précommandes ouvriront prochainement.'|t }}</p>
+  {% endif %}
+  {% if data.countdown %}
+    {{ data.countdown }}
+  {% endif %}
+  {% if data.progress is not null %}
+    <div class="wspo-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ data.progress }}" aria-label="{{ 'Avancement vers la sortie'|t }}">
+      <span class="wspo-progress__bar" style="width: {{ data.progress }}%"></span>
+    </div>
+  {% endif %}
+  {% if data.remaining is not null %}
+    <p class="wspo-box__remaining">
+      {% if data.remaining > 0 %}{{ 'Plus que @n exemplaire(s) disponible(s) en précommande.'|t({'@n': data.remaining}) }}{% else %}{{ 'Quota atteint : les précommandes sont complètes.'|t }}{% endif %}
+    </p>
+  {% endif %}
+  {% if data.message %}
+    <p class="wspo-box__message">{{ data.message }}</p>
+  {% endif %}
+</section>

@@ -1,0 +1,61 @@
+forbid_mixed: false
+btn_label: 'Précommander'
+badge_label: 'Précommande'
+cart_notice: 'Votre panier contient des précommandes : elles seront expédiées à leur date de sortie.'
+admin_email: ''
+keep_data: false
+show_countdown: true
+show_progress: true
+show_quota: true
+show_flag: true
+countdown_mode: auto
+colors:
+  accent: '#e8590c'
+  on_accent: '#ffffff'
+  box_bg: '#fff4ec'
+  border: '#f5c7a5'
+  count_bg: '#222222'
+  count_text: '#ffffff'
+  badge_bg: '#e8590c'
+  ticker_bg: '#222222'
+  ticker_text: '#ffffff'
+featured_enabled: true
+featured_title: 'À ne pas manquer'
+ticker_enabled: true
+ticker_speed: 60
+ticker_max: 10
+ticker_prefix: 'Précommandes :'
+accounts:
+  login:
+    products: false
+    form: false
+  register:
+    products: false
+    form: false
+  password:
+    products: false
+    form: false
+accounts_title: 'Prochaines précommandes'
+accounts_text: 'Ne manquez pas nos prochaines sorties.'
+accounts_max: 3
+list_slug: precommandes
+list_title: 'Toutes les précommandes'
+list_intro: ''
+list_group_by_month: true
+alerts_enabled: true
+alerts_title: 'Alerte précommandes'
+alerts_text: 'Soyez prévenu par e-mail des nouvelles précommandes.'
+alerts_consent: 'J''accepte de recevoir des e-mails d''alerte et je peux me désinscrire à tout moment.'
+alerts_double_optin: true
+alerts_min_delay: 3
+digest_enabled: false
+digest_freq: week
+digest_times: 1
+digest_mode: all
+digest_max: 10
+digest_batch: 25
+cron_token: ''
+mail_order_on: true
+mail_available_on: true
+mail_admin_on: true
+emails: {  }

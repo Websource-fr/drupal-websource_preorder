@@ -1,0 +1,10 @@
+websource_preorder.rule_add:
+  route_name: entity.websource_preorder_rule.add_form
+  title: 'Ajouter une règle'
+  appears_on:
+    - entity.websource_preorder_rule.collection
+websource_preorder.subscriber_add:
+  route_name: websource_preorder.subscriber_add
+  title: 'Ajouter un abonné'
+  appears_on:
+    - websource_preorder.subscribers

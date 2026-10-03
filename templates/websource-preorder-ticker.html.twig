@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Bandeau défilant. Variables : items, prefix_text, speed (px/s).
+ * La liste est dupliquée (aria-hidden) pour un défilement continu.
+ */
+#}
+<div class="wspo-ticker" data-wspo-ticker data-speed="{{ speed }}" role="region" aria-label="{{ 'Produits en précommande'|t }}">
+  <div class="wspo-ticker__track">
+    {% for copy in 0..1 %}
+      <ul class="wspo-ticker__list"{% if copy == 1 %} aria-hidden="true"{% endif %}>
+        {% if prefix_text %}<li class="wspo-ticker__prefix">{{ prefix_text }}</li>{% endif %}
+        {% for item in items %}
+          <li><a href="{{ item.url }}"{% if copy == 1 %} tabindex="-1"{% endif %}>{{ item.title }}{% if item.release %} <span class="wspo-ticker__date">({{ item.release }})</span>{% endif %}</a></li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  </div>
+</div>

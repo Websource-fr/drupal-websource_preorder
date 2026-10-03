@@ -1,0 +1,15 @@
+{
+    "name": "websource/websource_preorder",
+    "type": "drupal-module",
+    "description": "Système complet de précommandes pour Drupal Commerce : compte à rebours, quotas, réservations, alertes e-mail, récapitulatif cron.",
+    "homepage": "https://github.com/Websource-fr/drupal-websource_preorder",
+    "license": "proprietary",
+    "authors": [
+        { "name": "Websource", "homepage": "https://www.websource.fr", "email": "contact@websource.fr" }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "drupal/core": "^10 || ^11",
+        "drupal/commerce": "^2.38 || ^3.0"
+    }
+}

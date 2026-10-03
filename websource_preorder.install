@@ -1,0 +1,133 @@
+<?php
+
+/**
+ * @file
+ * Installation, schéma et désinstallation de Websource Précommandes.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Component\Utility\Crypt;
+
+/**
+ * Implements hook_schema().
+ */
+function websource_preorder_schema() {
+  $schema['websource_preorder_reservation'] = [
+    'description' => 'Réservations de précommande (une ligne par article de commande).',
+    'fields' => [
+      'id' => ['type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE],
+      'rule_id' => ['type' => 'varchar', 'length' => 128, 'not null' => TRUE, 'default' => ''],
+      'variation_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'order_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'order_item_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'uid' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'email' => ['type' => 'varchar', 'length' => 254, 'not null' => TRUE, 'default' => ''],
+      'customer_name' => ['type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''],
+      'product_title' => ['type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''],
+      'quantity' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 1],
+      'status' => ['type' => 'varchar', 'length' => 16, 'not null' => TRUE, 'default' => 'active'],
+      'langcode' => ['type' => 'varchar', 'length' => 12, 'not null' => TRUE, 'default' => ''],
+      'created' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'notified' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'rule_status' => ['rule_id', 'status'],
+      'order_id' => ['order_id'],
+      'order_item_id' => ['order_item_id'],
+      'uid' => ['uid'],
+      'email' => ['email'],
+    ],
+  ];
+  $schema['websource_preorder_subscriber'] = [
+    'description' => 'Abonnés aux alertes e-mail précommandes.',
+    'fields' => [
+      'id' => ['type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE],
+      'email' => ['type' => 'varchar', 'length' => 254, 'not null' => TRUE, 'default' => ''],
+      'langcode' => ['type' => 'varchar', 'length' => 12, 'not null' => TRUE, 'default' => ''],
+      'status' => ['type' => 'int', 'size' => 'tiny', 'not null' => TRUE, 'default' => 0],
+      'consent' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'created' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'confirmed' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'digest_run' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+    ],
+    'primary key' => ['id'],
+    'unique keys' => ['email' => ['email']],
+    'indexes' => ['status' => ['status']],
+  ];
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function websource_preorder_install($is_syncing) {
+  // Envoi HTML des e-mails du module (délègue au système d'envoi du site).
+  \Drupal::configFactory()->getEditable('system.mail')
+    ->set('interface.websource_preorder', 'websource_preorder_html')->save();
+
+  foreach (['anonymous' => ['view websource_preorder pages'], 'authenticated' => ['view websource_preorder pages', 'view own websource_preorder']] as $rid => $perms) {
+    if (\Drupal\user\Entity\Role::load($rid)) {
+      user_role_grant_permissions($rid, $perms);
+    }
+  }
+
+  $state = \Drupal::state();
+  $config = \Drupal::configFactory()->getEditable('websource_preorder.settings');
+  $schema = \Drupal::database()->schema();
+
+  // Réinstallation après une désinstallation avec « conserver les données ».
+  foreach (['websource_preorder_reservation', 'websource_preorder_subscriber'] as $table) {
+    $kept = $table . '_kept';
+    if ($schema->tableExists($kept)) {
+      \Drupal::database()->truncate($table)->execute();
+      \Drupal::database()->query("INSERT INTO {" . $table . "} SELECT * FROM {" . $kept . "}");
+      $schema->dropTable($kept);
+    }
+  }
+  if (!$is_syncing) {
+    if ($kept_settings = $state->get('websource_preorder.kept_settings')) {
+      $config->setData($kept_settings);
+    }
+    if (!$config->get('cron_token')) {
+      $config->set('cron_token', Crypt::randomBytesBase64(24));
+    }
+    $config->save();
+    if ($rules = $state->get('websource_preorder.kept_rules')) {
+      $storage = \Drupal::entityTypeManager()->getStorage('websource_preorder_rule');
+      foreach ($rules as $values) {
+        $storage->create($values)->save();
+      }
+    }
+    $state->delete('websource_preorder.kept_rules');
+    $state->delete('websource_preorder.kept_settings');
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Si « conserver les données » est activé, les tables sont renommées en
+ * *_kept avant que Drupal ne supprime les tables du schéma.
+ */
+function websource_preorder_uninstall($is_syncing) {
+  $keep = (bool) \Drupal::state()->get('websource_preorder.kept_settings.keep', FALSE);
+  if (!$keep) {
+    $s = \Drupal::state()->get('websource_preorder.kept_settings');
+    $keep = !empty($s['keep_data']);
+  }
+  $schema = \Drupal::database()->schema();
+  if ($keep) {
+    foreach (['websource_preorder_reservation', 'websource_preorder_subscriber'] as $table) {
+      if ($schema->tableExists($table)) {
+        $schema->renameTable($table, $table . '_kept');
+      }
+    }
+  }
+  \Drupal::state()->delete('websource_preorder.digest_last');
+  \Drupal::state()->delete('websource_preorder.digest_items');
+  \Drupal::state()->delete('websource_preorder.digest_run');
+  \Drupal::queue('websource_preorder_digest')->deleteQueue();
+  \Drupal::configFactory()->getEditable('system.mail')->clear('interface.websource_preorder')->save();
+}

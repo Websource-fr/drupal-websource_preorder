@@ -1,0 +1,13 @@
+name: 'Websource Précommandes'
+type: module
+description: 'Système complet de précommandes pour Drupal Commerce : date de sortie, compte à rebours, prix de précommande, quotas, réservations, alertes e-mail et récapitulatif par cron.'
+package: Websource
+core_version_requirement: ^10 || ^11
+version: 1.0.0
+configure: websource_preorder.settings
+dependencies:
+  - commerce_product:commerce_product
+  - commerce_order:commerce_order
+  - commerce_cart:commerce_cart
+  - commerce_price:commerce_price
+  - commerce_store:commerce_store

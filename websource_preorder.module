@@ -1,0 +1,290 @@
+<?php
+
+/**
+ * @file
+ * Websource Précommandes : précommandes pour Drupal Commerce.
+ */
+
+declare(strict_types=1);
+
+use Drupal\commerce_order\Entity\OrderInterface;
+use Drupal\commerce_payment\Entity\PaymentInterface;
+use Drupal\commerce_product\Entity\ProductInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function websource_preorder_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name === 'help.page.websource_preorder') {
+    return '<p>' . t('Système complet de précommandes pour Drupal Commerce : règles par produit ou variation, prix de précommande, quotas, réservations, compte à rebours, alertes e-mail et récapitulatif par cron. Réglages : Commerce → Configuration → Précommandes.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function websource_preorder_theme() {
+  return [
+    'websource_preorder_box' => ['variables' => ['data' => []], 'template' => 'websource-preorder-box'],
+    'websource_preorder_badge' => ['variables' => ['label' => ''], 'template' => 'websource-preorder-badge'],
+    'websource_preorder_countdown' => [
+      'variables' => ['target' => 0, 'start' => NULL, 'mode' => 'auto', 'remaining' => 0, 'labels' => [], 'done_text' => ''],
+      'template' => 'websource-preorder-countdown',
+    ],
+    'websource_preorder_featured' => ['variables' => ['title' => '', 'item' => []], 'template' => 'websource-preorder-featured'],
+    'websource_preorder_ticker' => ['variables' => ['items' => [], 'prefix_text' => '', 'speed' => 60], 'template' => 'websource-preorder-ticker'],
+    'websource_preorder_list' => ['variables' => ['intro' => '', 'groups' => []], 'template' => 'websource-preorder-list'],
+    'websource_preorder_upcoming' => ['variables' => ['title' => '', 'text' => '', 'items' => []], 'template' => 'websource-preorder-upcoming'],
+    'websource_preorder_mine' => ['variables' => ['rows' => []], 'template' => 'websource-preorder-mine'],
+  ];
+}
+
+/**
+ * Prépare les variables du compte à rebours (valeurs initiales côté serveur).
+ */
+function template_preprocess_websource_preorder_countdown(array &$variables) {
+  $r = (int) $variables['remaining'];
+  $variables['parts'] = [
+    'd' => intdiv($r, 86400),
+    'h' => intdiv($r % 86400, 3600),
+    'm' => intdiv($r % 3600, 60),
+    's' => $r % 60,
+  ];
+  $mode = $variables['mode'];
+  $show = ['d' => TRUE, 'h' => TRUE, 'm' => TRUE, 's' => FALSE];
+  switch ($mode) {
+    case 'd': $show = ['d' => TRUE, 'h' => FALSE, 'm' => FALSE, 's' => FALSE]; break;
+    case 'dh': $show = ['d' => TRUE, 'h' => TRUE, 'm' => FALSE, 's' => FALSE]; break;
+    case 'dhm': $show = ['d' => TRUE, 'h' => TRUE, 'm' => TRUE, 's' => FALSE]; break;
+    case 'dhms': $show = ['d' => TRUE, 'h' => TRUE, 'm' => TRUE, 's' => TRUE]; break;
+  }
+  $variables['show'] = $show;
+}
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Injecte les 9 couleurs sous forme de variables CSS.
+ */
+function websource_preorder_page_attachments(array &$attachments) {
+  $config = \Drupal::config('websource_preorder.settings');
+  $map = [
+    'accent' => '--wspo-accent', 'on_accent' => '--wspo-on-accent', 'box_bg' => '--wspo-box-bg',
+    'border' => '--wspo-border', 'count_bg' => '--wspo-count-bg', 'count_text' => '--wspo-count-text',
+    'badge_bg' => '--wspo-badge-bg', 'ticker_bg' => '--wspo-ticker-bg', 'ticker_text' => '--wspo-ticker-text',
+  ];
+  $css = '';
+  foreach ((array) $config->get('colors') as $k => $v) {
+    if (isset($map[$k]) && preg_match('/^#[0-9a-fA-F]{3,8}$/', (string) $v)) {
+      $css .= $map[$k] . ':' . $v . ';';
+    }
+  }
+  if ($css) {
+    $attachments['#attached']['html_head'][] = [
+      ['#tag' => 'style', '#value' => ':root{' . $css . '}'],
+      'websource_preorder_colors',
+    ];
+  }
+  $attachments['#cache']['tags'][] = 'config:websource_preorder.settings';
+}
+
+/**
+ * Implements hook_commerce_product_build_defaults_alter().
+ *
+ * Les métadonnées de cache doivent être posées ici (avant la mise en cache du
+ * rendu de l'entité) pour que la création, la modification ou la suppression
+ * d'une règle invalide bien les fiches et listes produits déjà en cache.
+ */
+function websource_preorder_commerce_product_build_defaults_alter(array &$build, ProductInterface $entity, $view_mode) {
+  $build['#cache']['tags'] = array_merge($build['#cache']['tags'] ?? [], [
+    'websource_preorder_rules', 'websource_preorder_reservations', 'config:websource_preorder.settings',
+  ]);
+  $rules = \Drupal::service('websource_preorder.rule_manager');
+  $rule = $rules->getRuleForProduct((int) $entity->id(), array_map(fn ($v) => (int) $v->id(), $entity->getVariations()));
+  if ($rule) {
+    $cache = \Drupal::service('websource_preorder.display')->cacheFor($rule);
+    $build['#cache']['max-age'] = isset($build['#cache']['max-age']) && $build['#cache']['max-age'] >= 0
+      ? min($build['#cache']['max-age'], $cache['max-age']) : $cache['max-age'];
+    $build['#cache']['contexts'] = array_merge($build['#cache']['contexts'] ?? [], ['languages:language_interface']);
+  }
+}
+
+/**
+ * Implements hook_commerce_product_view_alter().
+ */
+function websource_preorder_commerce_product_view_alter(array &$build, ProductInterface $entity, EntityViewDisplayInterface $display) {
+  $rules = \Drupal::service('websource_preorder.rule_manager');
+  $display_builder = \Drupal::service('websource_preorder.display');
+  $variation_ids = array_map(fn ($v) => (int) $v->id(), $entity->getVariations());
+  $rule = $rules->getRuleForProduct((int) $entity->id(), $variation_ids);
+  $build['#cache']['tags'][] = 'websource_preorder_rules';
+  $build['#cache']['tags'][] = 'config:websource_preorder.settings';
+  if (!$rule) {
+    return;
+  }
+  $cache = $display_builder->cacheFor($rule);
+  $build['#cache']['max-age'] = isset($build['#cache']['max-age'])
+    ? min($build['#cache']['max-age'], $cache['max-age']) : $cache['max-age'];
+  $build['#cache']['tags'] = array_merge($build['#cache']['tags'], $cache['tags']);
+  // Le mode demandé (« full ») peut retomber sur l'affichage « default ».
+  if (($build['#view_mode'] ?? $display->getMode()) === 'full') {
+    if ($box = $display_builder->box($rule)) {
+      $build['websource_preorder'] = $box;
+    }
+  }
+  elseif ($rules->isRunning($rule) && \Drupal::config('websource_preorder.settings')->get('show_flag')) {
+    $build['websource_preorder_badge'] = $display_builder->badge($rule) + ['#weight' => -10];
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function websource_preorder_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $config = \Drupal::config('websource_preorder.settings');
+
+  // Bouton « Précommander ».
+  if (str_starts_with($form_id, 'commerce_order_item_add_to_cart_form') && isset($form['actions']['submit'])) {
+    $form_object = $form_state->getFormObject();
+    if (method_exists($form_object, 'getEntity')) {
+      $item = $form_object->getEntity();
+      $pe = method_exists($item, 'getPurchasedEntity') ? $item->getPurchasedEntity() : NULL;
+      $rule = $pe ? \Drupal::service('websource_preorder.rule_manager')->getRunningRule($pe) : NULL;
+      if ($rule) {
+        $form['actions']['submit']['#value'] = $rule->getButtonLabel() ?: ($config->get('btn_label') ?: t('Précommander'));
+        $form['#cache']['tags'][] = 'config:websource_preorder.settings';
+        $form['#cache']['tags'][] = 'websource_preorder_rules';
+        $form['#cache']['max-age'] = 300;
+      }
+    }
+  }
+
+  // Notice du panier.
+  if (str_starts_with($form_id, 'views_form_commerce_cart_form') && $config->get('cart_notice')) {
+    $has = FALSE;
+    $rules = \Drupal::service('websource_preorder.rule_manager');
+    foreach (\Drupal::service('commerce_cart.cart_provider')->getCarts() as $cart) {
+      foreach ($cart->getItems() as $it) {
+        $pe = $it->getPurchasedEntity();
+        if ($pe && $rules->getRunningRule($pe)) {
+          $has = TRUE;
+        }
+      }
+    }
+    if ($has) {
+      $form['websource_preorder_notice'] = [
+        '#type' => 'html_tag', '#tag' => 'div',
+        '#value' => $config->get('cart_notice'),
+        '#attributes' => ['class' => ['wspo-cart-notice'], 'role' => 'status'],
+        '#weight' => -100,
+        '#attached' => ['library' => ['websource_preorder/front']],
+      ];
+    }
+  }
+
+  // Blocs sur connexion / inscription / mot de passe oublié.
+  $pages = ['user_login_form' => ['user.login', 'login'], 'user_register_form' => ['user.register', 'register'], 'user_pass' => ['user.pass', 'password']];
+  if (isset($pages[$form_id]) && \Drupal::routeMatch()->getRouteName() === $pages[$form_id][0]) {
+    $opts = $config->get('accounts.' . $pages[$form_id][1]);
+    if (!empty($opts['products']) || !empty($opts['form'])) {
+      $build = \Drupal::service('websource_preorder.display')->accountBlocks($opts);
+      if ($build) {
+        $form['#attached']['library'][] = 'websource_preorder/front';
+        $form['#suffix'] = ($form['#suffix'] ?? '') . (string) \Drupal::service('renderer')->renderInIsolation($build);
+        $form['#cache']['tags'][] = 'config:websource_preorder.settings';
+        $form['#cache']['tags'][] = 'websource_preorder_rules';
+        $form['#cache']['max-age'] = 300;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function websource_preorder_mail($key, &$message, $params) {
+  $message['subject'] = $params['subject'];
+  $message['body'] = [Markup::create($params['html'])];
+  $message['headers']['Content-Type'] = 'text/html; charset=UTF-8';
+}
+
+/**
+ * Implements hook_cron().
+ */
+function websource_preorder_cron() {
+  websource_preorder_run_tasks();
+}
+
+/**
+ * Tâches périodiques : e-mails « disponible » + récapitulatif.
+ */
+function websource_preorder_run_tasks(): array {
+  $sent = \Drupal::service('websource_preorder.release')->process(200);
+  $batches = \Drupal::service('websource_preorder.digest')->run();
+  return ['available_sent' => $sent, 'digest_batches' => $batches];
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update() pour commerce_payment (remboursement).
+ */
+function websource_preorder_commerce_payment_update(PaymentInterface $payment) {
+  $original = $payment->original ?? NULL;
+  if ($payment->getState()->getId() === 'refunded' && (!$original || $original->getState()->getId() !== 'refunded')) {
+    if ($payment->getOrderId()) {
+      \Drupal::service('websource_preorder.reservation_manager')->cancelByOrder((int) $payment->getOrderId());
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete() pour commerce_order.
+ */
+function websource_preorder_commerce_order_delete(OrderInterface $order) {
+  \Drupal::service('websource_preorder.reservation_manager')->deleteByOrder((int) $order->id());
+}
+
+/**
+ * Implements hook_module_preuninstall().
+ *
+ * Avec « conserver les données », sauvegarde règles et réglages dans le
+ * State (qui survit à la désinstallation) ; les tables sont renommées.
+ */
+function websource_preorder_module_preuninstall($module) {
+  if ($module !== 'websource_preorder') {
+    return;
+  }
+  $config = \Drupal::configFactory()->getEditable('websource_preorder.settings');
+  if (!$config->get('keep_data')) {
+    \Drupal::state()->delete('websource_preorder.kept_rules');
+    \Drupal::state()->delete('websource_preorder.kept_settings');
+    return;
+  }
+  $rules = [];
+  foreach (\Drupal::entityTypeManager()->getStorage('websource_preorder_rule')->loadMultiple() as $rule) {
+    $rules[$rule->id()] = $rule->toArray();
+  }
+  \Drupal::state()->set('websource_preorder.kept_rules', $rules);
+  \Drupal::state()->set('websource_preorder.kept_settings', $config->getRawData());
+}
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ *
+ * Par défaut, affiche le prix « calculé » (qui tient compte du prix de
+ * précommande) plutôt que le prix stocké. N'a d'effet que si aucun affichage
+ * n'est configuré pour la variation ; sinon choisissez le formateur
+ * « Prix calculé » dans Structure → Types de variation → Gérer l'affichage.
+ */
+function websource_preorder_entity_base_field_info_alter(&$fields, $entity_type) {
+  if ($entity_type->id() === 'commerce_product_variation' && isset($fields['price'])) {
+    $fields['price']->setDisplayOptions('view', [
+      'label' => 'above',
+      'type' => 'commerce_price_calculated',
+      'weight' => 0,
+    ]);
+  }
+}
