@@ -5,7 +5,7 @@ Système **complet et paramétrable** de précommandes pour Drupal Commerce : da
 Port du module PrestaShop [Websource Précommandes](https://github.com/Websource-fr/websourcepreorder).
 
 - **Éditeur** : [Websource](https://www.websource.fr)
-- **Version** : 1.0.0 — **Licence** : usage libre non commercial (voir [LICENSE](LICENSE))
+- **Version** : 1.0.1 — **Licence** : usage libre non commercial (voir [LICENSE](LICENSE))
 - **Guide utilisateur** : joint à la [release](../../releases) (PDF)
 
 ## Compatibilité
@@ -47,6 +47,10 @@ Port du module PrestaShop [Websource Précommandes](https://github.com/Websource
 5. Cron : le cron Drupal suffit ; vous pouvez aussi planifier l'URL sécurisée affichée dans l'onglet « Cron & récapitulatif ».
 
 > Pour que le prix de précommande s'affiche sur la fiche produit, le champ prix de la variation doit utiliser le formateur **« Prix calculé »** (c'est le comportement par défaut du module si aucun affichage n'est configuré).
+
+## Encart « accompagnement Websource »
+
+Les administrateurs (permission « Administrer les précommandes ») voient, sur les pages d'administration du module uniquement, un encart discret proposant un accompagnement par Websource. Il n'apparaît jamais en front ni dans les e-mails, peut être masqué 30 jours (bouton « Masquer », `localStorage`) et ne déclenche aucune requête externe. Les deux boutons ouvrent `https://www.websource.fr/contact` avec les paramètres `utm_*` et `ws_module`, `ws_mv` (version du module), `ws_cms=drupal`, `ws_cmsv` (version de Drupal) et `ws_site` (schéma + domaine du site) ; une mention de transparence est affichée sous les boutons. Template unique, réutilisable : `templates/websource-preorder-support.html.twig`.
 
 ## Permissions
 

@@ -39,6 +39,7 @@ function websource_preorder_theme() {
     'websource_preorder_ticker' => ['variables' => ['items' => [], 'prefix_text' => '', 'speed' => 60], 'template' => 'websource-preorder-ticker'],
     'websource_preorder_list' => ['variables' => ['intro' => '', 'groups' => []], 'template' => 'websource-preorder-list'],
     'websource_preorder_upcoming' => ['variables' => ['title' => '', 'text' => '', 'items' => []], 'template' => 'websource-preorder-upcoming'],
+    'websource_preorder_support' => ['variables' => ['links' => [], 'module' => 'websource_preorder'], 'template' => 'websource-preorder-support'],
     'websource_preorder_mine' => ['variables' => ['rows' => []], 'template' => 'websource-preorder-mine'],
   ];
 }
@@ -287,4 +288,43 @@ function websource_preorder_entity_base_field_info_alter(&$fields, $entity_type)
       'weight' => 0,
     ]);
   }
+}
+
+/**
+ * Implements hook_page_top().
+ *
+ * Encart « accompagnement Websource » : uniquement sur les pages
+ * d'administration du module, pour les utilisateurs autorisés à administrer
+ * le module. Jamais en front, jamais dans les e-mails.
+ */
+function websource_preorder_page_top(array &$page_top) {
+  $route = \Drupal::routeMatch()->getRouteObject();
+  $cache = ['contexts' => ['user.permissions', 'route', 'url.site']];
+  $page_top['websource_preorder_support'] = ['#cache' => $cache];
+  if (!$route || !str_starts_with($route->getPath(), '/admin/commerce/preorder')) {
+    return;
+  }
+  if (!\Drupal::currentUser()->hasPermission('administer websource_preorder')) {
+    return;
+  }
+  $info = \Drupal::service('extension.list.module')->getExtensionInfo('websource_preorder');
+  $request = \Drupal::request();
+  $params = [
+    'utm_source' => 'websource_preorder',
+    'utm_medium' => 'admin-module',
+    'utm_campaign' => 'accompagnement',
+  ];
+  $ws = [
+    'ws_module' => 'websource_preorder',
+    'ws_mv' => (string) ($info['version'] ?? ''),
+    'ws_cms' => 'drupal',
+    'ws_cmsv' => \Drupal::VERSION,
+    'ws_site' => $request->getSchemeAndHttpHost(),
+  ];
+  $url = fn (array $extra) => 'https://www.websource.fr/contact?' . http_build_query($params + $extra + $ws, '', '&', PHP_QUERY_RFC3986);
+  $page_top['websource_preorder_support'] += [
+    '#theme' => 'websource_preorder_support',
+    '#links' => ['contact' => $url([]), 'rdv' => $url(['utm_content' => 'rdv'])],
+    '#attached' => ['library' => ['websource_preorder/support']],
+  ];
 }

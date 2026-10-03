@@ -1,9 +1,8 @@
 # Websource Précommandes — traduction française (catalogue de référence).
-# Les chaînes sources du module sont rédigées en français ; ce fichier sert de base de traduction
-# (copiez-le en en.po, de.po... et renseignez msgstr).
+# Chaînes sources en français : copiez ce fichier (en.po, de.po…) et renseignez msgstr.
 msgid ""
 msgstr ""
-"Project-Id-Version: websource_preorder 1.0.0\n"
+"Project-Id-Version: websource_preorder 1.0.1\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -155,6 +154,10 @@ msgstr "Automatique (selon le temps restant)"
 #: templates/websource-preorder-box.html.twig
 msgid "Avancement vers la sortie"
 msgstr "Avancement vers la sortie"
+
+#: templates/websource-preorder-support.html.twig
+msgid "Besoin d’aller plus loin ?"
+msgstr "Besoin d’aller plus loin ?"
 
 #: src/Form/SettingsForm.php
 msgid "Blocs comptes"
@@ -324,6 +327,10 @@ msgstr "En attente"
 msgid "En attente de sortie"
 msgstr "En attente de sortie"
 
+#: templates/websource-preorder-support.html.twig
+msgid "En cliquant, le nom du module et l’adresse de votre site sont transmis à Websource pour faciliter notre réponse."
+msgstr "En cliquant, le nom du module et l’adresse de votre site sont transmis à Websource pour faciliter notre réponse."
+
 #: src/Service/DisplayBuilder.php
 msgid "En cours"
 msgstr "En cours"
@@ -488,6 +495,10 @@ msgstr "Limite de @max exemplaire(s) de « @label » par client atteinte (déjà
 msgid "Limites (0 = illimité)"
 msgstr "Limites (0 = illimité)"
 
+#: templates/websource-preorder-support.html.twig
+msgid "Masquer"
+msgstr "Masquer"
+
 #: src/Form/PreorderRuleForm.php
 msgid "Maximum par client"
 msgstr "Maximum par client"
@@ -544,6 +555,10 @@ msgstr "Nombre maximum de produits par e-mail"
 msgid "Notice du panier"
 msgstr "Notice du panier"
 
+#: templates/websource-preorder-support.html.twig
+msgid "Nous contacter"
+msgstr "Nous contacter"
+
 #: src/Form/SettingsForm.php
 msgid "Objet"
 msgstr "Objet"
@@ -571,6 +586,10 @@ msgstr "Placez le bloc dans la région de votre choix via Structure → Mise en 
 #: templates/websource-preorder-box.html.twig templates/websource-preorder-featured.html.twig templates/websource-preorder-list.html.twig
 msgid "Plus que @n exemplaire(s) disponible(s) en précommande."
 msgstr "Plus que @n exemplaire(s) disponible(s) en précommande."
+
+#: templates/websource-preorder-support.html.twig
+msgid "Prendre rendez-vous"
+msgstr "Prendre rendez-vous"
 
 #: src/Form/PreorderRuleForm.php
 msgid "Prix de précommande"
@@ -883,6 +902,10 @@ msgstr "Vous n’avez aucune précommande."
 #: src/Controller/PublicController.php
 msgid "Vous êtes désinscrit des alertes précommandes. Vos données ont été supprimées."
 msgstr "Vous êtes désinscrit des alertes précommandes. Vos données ont été supprimées."
+
+#: templates/websource-preorder-support.html.twig
+msgid "Websource, l’agence éditrice de ce module, peut vous accompagner plus en profondeur : personnalisation sur mesure, adaptation à votre thème, développements spécifiques. Parlons de votre besoin."
+msgstr "Websource, l’agence éditrice de ce module, peut vous accompagner plus en profondeur : personnalisation sur mesure, adaptation à votre thème, développements spécifiques. Parlons de votre besoin."
 
 #: src/Service/DisplayBuilder.php
 msgid "heures"

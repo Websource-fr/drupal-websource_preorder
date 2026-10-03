@@ -3,7 +3,7 @@ type: module
 description: 'Système complet de précommandes pour Drupal Commerce : date de sortie, compte à rebours, prix de précommande, quotas, réservations, alertes e-mail et récapitulatif par cron.'
 package: Websource
 core_version_requirement: ^10 || ^11
-version: 1.0.0
+version: 1.0.1
 configure: websource_preorder.settings
 dependencies:
   - commerce_product:commerce_product

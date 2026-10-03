@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Encart « accompagnement Websource » (administration uniquement).
+ * Template unique, réutilisable dans les autres modules Websource.
+ * Variables : links.contact, links.rdv, module.
+ */
+#}
+<aside class="wspo-support messages messages--status" role="complementary" data-wspo-support="{{ module }}">
+  <h2 class="wspo-support__title">{{ 'Besoin d’aller plus loin ?'|t }}</h2>
+  <p>{{ 'Websource, l’agence éditrice de ce module, peut vous accompagner plus en profondeur : personnalisation sur mesure, adaptation à votre thème, développements spécifiques. Parlons de votre besoin.'|t }}</p>
+  <p class="wspo-support__actions">
+    <a class="button button--primary" href="{{ links.contact }}" target="_blank" rel="noopener noreferrer">{{ 'Nous contacter'|t }}</a>
+    <a class="button" href="{{ links.rdv }}" target="_blank" rel="noopener noreferrer">{{ 'Prendre rendez-vous'|t }}</a>
+    <button type="button" class="button wspo-support__hide">{{ 'Masquer'|t }}</button>
+  </p>
+  <p class="wspo-support__note">{{ 'En cliquant, le nom du module et l’adresse de votre site sont transmis à Websource pour faciliter notre réponse.'|t }}</p>
+</aside>

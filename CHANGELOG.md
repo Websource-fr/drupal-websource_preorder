@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1 — 2026-10-03
+
+- Ajout d'un encart « accompagnement Websource » (« Besoin d'aller plus loin ? ») : visible uniquement dans les pages d'administration du module (`/admin/commerce/preorder…`) et uniquement pour les utilisateurs ayant la permission « Administrer les précommandes ». Jamais en front ni dans les e-mails ; masquable 30 jours (localStorage) ; aucune requête externe. Les boutons « Nous contacter » / « Prendre rendez-vous » transmettent paramètres `utm_*` et `ws_*` (nom du module, version, version de Drupal, schéma+domaine du site), mention de transparence affichée sous les boutons. Template unique réutilisable : `templates/websource-preorder-support.html.twig` (bibliothèque `websource_preorder/support`).
+
 ## 1.0.0 — 2026-10-03
 
 Première version : port complet du module PrestaShop « Websource Précommandes » vers Drupal Commerce.

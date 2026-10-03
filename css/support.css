@@ -1,0 +1,6 @@
+.wspo-support { margin: 1rem 1.5rem; padding: 1rem 1.25rem; border: 1px solid #d3d4d9; border-left: 4px solid #003ecc; border-radius: 4px; background: #f3f4f9; color: #232429; }
+.wspo-support__title { margin: 0 0 .4rem; font-size: 1.1rem; }
+.wspo-support p { margin: .3rem 0; }
+.wspo-support__actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.wspo-support__note { font-size: .8rem; color: #55565b; }
+.wspo-support[hidden] { display: none; }

@@ -14,3 +14,13 @@ admin:
   css:
     theme:
       css/admin.css: {}
+support:
+  version: 1.0.1
+  css:
+    theme:
+      css/support.css: {}
+  js:
+    js/support.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
